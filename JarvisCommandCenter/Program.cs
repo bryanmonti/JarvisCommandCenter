@@ -19,8 +19,10 @@ namespace Speech
 { //Pissing people off with #regions since Microsoft Visual 2008.
     public class Program
     {
+        public static int shit;
         public static int tskid = 0;
         public static System.IO.Ports.SerialPort port;
+
         public static void Main(string[] args)
         {
 
@@ -138,7 +140,7 @@ namespace Speech
                 #region commands
                 commands.Add("pull up the weather");//DONE
                 commands.Add("Open task manager");//DONE
-                commands.Add("Ha gay");//DONE
+                commands.Add("Ha gaaaaaaaay");//DONE
                 commands.Add("Play good feeling radio");//DONE
                 commands.Add("Open reddit");//DONE
                 commands.Add("Close chrome");//DONE
@@ -166,6 +168,7 @@ namespace Speech
                 commands.Add("Open microsoft visual");
                 commands.Add("Open Webstorm");
                 commands.Add("Open Pycharm");
+                commands.Add("Open castle learning");
                 
                 #endregion
 
@@ -224,7 +227,7 @@ namespace Speech
 
         private static void SreSpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {//TODO: Change all these if's into "else if" or setup a switch/case system (Faster processing is going to become key
-            if (e.Result.Confidence >= 0.65)
+            if (e.Result.Confidence >= 0.7)
             {
                 Console.WriteLine("\nSpeech Recognized: \t{0}\tConfidence:\t{1}", e.Result.Text, e.Result.Confidence);
                 //Add a line here that sends recieved audio to serial
@@ -311,7 +314,7 @@ namespace Speech
                         break;
 
                     case "Close task manager":
-                        foreach (Process p in System.Diagnostics.Process.GetProcessesByName("taskmanager"))//Doesn't work with for eachj because not plural
+                        foreach (Process p in System.Diagnostics.Process.GetProcessesByName("taskmgr"))//Doesn't work with for eachj because not plural
                         {
                             try
                             {
@@ -356,7 +359,7 @@ namespace Speech
                         goodfeeling.Start();
                         break;
 
-                    case "Ha gay":
+                    case "Ha gaaaaaaaay":
                         Process gaaay = new Process();
 
                         gaaay.StartInfo.FileName = "chrome.exe";
@@ -398,8 +401,27 @@ namespace Speech
                         castle.StartInfo.Arguments = "http://www.castlelearning.com";
 
                         castle.Start();
+
+                        shit = castle.Id;
+                        Console.WriteLine(shit);
                         break;
-                }
+
+                    case "Close castle learning":
+                        //create process array
+                        //then kill all process with this Id
+
+                        //string aprocess = GetProcessById(shit);
+                        
+                        break;
+
+                    /*case "Sticky me":
+                        Process sticky = new Process();
+
+                        sticky.StartInfo.FileName = "StikyNot.exe";
+                        sticky.Start();
+                        break;*/
+
+            }
                 //so on and so fourth
             }
             else
@@ -407,7 +429,8 @@ namespace Speech
                 Console.WriteLine("\nSpeech Recognized but confidence was too low: \t{0}", e.Result.Confidence);
                 DumpRecordedAudio(e.Result.Audio); //deletes extra audio after being analyzed
             }
-        }
+}
+        
 
         private static void DumpRecordedAudio(RecognizedAudio audio)
         {
